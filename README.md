@@ -1,6 +1,6 @@
 # htaccess
 
-##ssl リダイレクト
+## ssl リダイレクト
 ```
 <IfModule mod_rewrite.c>
 RewriteEngine On
