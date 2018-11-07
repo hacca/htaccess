@@ -1,5 +1,3 @@
-# htaccess
-
 ## ssl リダイレクト
 ```
 <IfModule mod_rewrite.c>
