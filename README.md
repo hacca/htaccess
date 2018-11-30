@@ -9,14 +9,19 @@ RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
 
 # httpsからの通信でwww有りの場合、www無しにリダイレクト
+```
 RewriteCond %{HTTPS} on
 RewriteCond %{HTTP_HOST} ^www.example.com$
 RewriteRule ^(.*)$ https://example.com/$1 [R=301,L]
 </IfModule>
 ```
+<br><br><br>
 
-
+# httpsからの通信でwww有りの場合、www無しにリダイレクト
+```
 Options -Indexes
+```
+
 Header set Strict-Transport-Security “max-age=31536000″ env=HTTPS
 
 RewriteRule ^creative-partner/$ https://goo.gl/forms/Si2KVpXClcuu8qji1 [R=301,L]
