@@ -27,33 +27,32 @@ Options -Indexes
 RewriteRule ^creative-partner/$ https://goo.gl/forms/Si2KVpXClcuu8qji1 [R=301,L]
 ```
 
-
+<br><br><br>
+# HSTS設定
 ```
 Header set Strict-Transport-Security “max-age=31536000″ env=HTTPS
 ```
 
-RewriteRule ^creative-partner/$ https://goo.gl/forms/Si2KVpXClcuu8qji1 [R=301,L]
-
-
+<br><br><br>
+# http-equiv="X-UA-Compatible"
+```
 <IfModule mod_headers.c>
-  Header set X-UA-Compatible "IE=Edge,chrome=1"
-  <FilesMatch ";\.(js|css|gif|png|jpe?g|pdf|xml|oga|ogg|m4a|ogv|mp4|m4v|webm|svg|svgz|eot|ttf|otf|woff|ico|webp|appcache|manifest|htc|crx|xpi|safariextz|vcf)$">
-    Header unset X-UA-Compatible
-  </FilesMatch>
+Header set X-UA-Compatible "IE=Edge,chrome=1"
 </IfModule>
+```
+
+<br><br><br>
+# wp-config.php守る
+```
 <files wp-config.php>
 order allow,deny
 deny from all
 </files>
-<Files ~ "^.*\.([Hh][Tt][Aa])">
-order allow,deny
-deny from all
-satisfy all
-</Files>
-ModPagespeed On
+```
 
-
+<br><br><br>
 # ブラウザへのキャッシュの設定
+```
 <IfModule mod_expires.c>
   ExpiresActive On
 
@@ -77,7 +76,11 @@ ModPagespeed On
   ExpiresByType application/x-font-opentype "access plus 1 year"
   ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
 </IfModule>
+```
 
+<br><br><br>
+# gzip
+```
 <IfModule mod_deflate.c>
 SetOutputFilter DEFLATE
 
@@ -89,27 +92,11 @@ SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|ico)$ no-gzip dont-vary
 
 Header append Vary User-Agent env=!dont-vary
 </IfModule>
+```
 
-
-<IfModule mod_headers.c>
-  Header set X-UA-Compatible "IE=Edge"
-  <FilesMatch ";\.(js|css|gif|png|jpe?g|pdf|xml|oga|ogg|m4a|ogv|mp4|m4v|webm|svg|svgz|eot|ttf|otf|woff|ico|webp|appcache|manifest|htc|crx|xpi|safariextz|vcf)$">
-    Header unset X-UA-Compatible
-  </FilesMatch>
-</IfModule>
-ErrorDocument 401 /error/401.html
-ErrorDocument 403 /error/403.html
-ErrorDocument 404 /error/404.html
-ErrorDocument 500 /error/500.html
-
-RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
-
-RewriteCond %{HTTPS} on
-RewriteCond %{HTTP_HOST} ^toyo-rice.jp$
-RewriteRule ^(.*)$ https://www.toyo-rice.jp/$1 [R=301,L]
-
+<br><br><br>
+# rewrite example
+```
 RewriteRule ^about/(.*)$ /kinmemai/about/$1 [R=301,L]
 RewriteRule ^com/(.*)$ /kinmemai/ [R=301,L]
 RewriteRule ^information/toyoseimaiki/$ /info/ [R=301,L]
@@ -145,23 +132,4 @@ RewriteRule ^saikoumai/anniversary/$ https://pro.form-mailer.jp/fms/1a2a1e1c1262
 RewriteRule ^seminar/$ https://pro.form-mailer.jp/fms/27321475133633 [R=301,L]
 RewriteRule ^lowprotein/enquete/$ https://pro.form-mailer.jp/fms/5c16e56a150680 [R=301,L]
 RewriteRule ^koukoku/$ http://www.toyorice.jp/fs/toyorice/c/otameshi2 [R=301,L]
-
-
-<IfModule mod_deflate.c>
-SetOutputFilter DEFLATE
-BrowserMatch ^Mozilla/4 gzip-only-text/html
-BrowserMatch ^Mozilla/4\.0[678] no-gzip
-BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
-SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|ico)$ no-gzip dont-vary
-SetEnvIfNoCase Request_URI _\.utxt$ no-gzip
-AddOutputFilterByType DEFLATE text/plain
-AddOutputFilterByType DEFLATE text/html
-AddOutputFilterByType DEFLATE text/xml
-AddOutputFilterByType DEFLATE text/css
-AddOutputFilterByType DEFLATE application/xhtml+xml
-AddOutputFilterByType DEFLATE application/xml
-AddOutputFilterByType DEFLATE application/rss+xml
-AddOutputFilterByType DEFLATE application/atom_xml
-AddOutputFilterByType DEFLATE application/x-javascript
-AddOutputFilterByType DEFLATE application/x-httpd-php
-</IfModule>
+```
