@@ -1,16 +1,5 @@
 ## ssl リダイレクト
 ```
-<IfModule mod_rewrite.c>
-RewriteEngine on
-RewriteCond %{HTTPS} off [OR]
-RewriteCond %{HTTP_HOST} ^tetau\.jp
-RewriteRule ^(.*)$ https://www.tetau.jp/$1 [R=301,L]
-</IfModule>
-
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /
- 
 # httpからの通信を、httpsにリダイレクト（www有り無し）
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
@@ -20,6 +9,12 @@ RewriteCond %{HTTPS} on
 RewriteCond %{HTTP_HOST} ^www.example.com$
 RewriteRule ^(.*)$ https://example.com/$1 [R=301,L]
 </IfModule>
+
+# さくら
+RewriteEngine On
+RewriteCond %{HTTP:X-SAKURA-FORWARDED-FOR} ^$
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
 ```
 
 <br><br><br>
