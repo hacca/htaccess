@@ -17,6 +17,12 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 ```
 
+```
+#サブドメインディレクトリに
+Redirect /base/ "https://base.tetau.jp/"
+```
+
+
 <br><br><br>
 # ファイルがない場合403返す
 ```
