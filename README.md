@@ -1,6 +1,13 @@
 ## ssl リダイレクト
 ```
 <IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^tetau\.jp
+RewriteRule ^(.*)$ https://www.tetau.jp/$1 [R=301,L]
+</IfModule>
+
+<IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
  
